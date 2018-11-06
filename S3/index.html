@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MINIO Subida de Ficheros</title>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="subidaMinio.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <div class="form-group contenedor">
+
+        <div>
+            <img class="img_logo" src="../logo.png">
+        </div>
+        
+        <div class="input-group mb-3">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="archivos" multiple onchange="mostrar()">
+                <label class="custom-file-label muestra" for="inputGroupFile01">Seleccionar ficheros</label>
+            </div>
+        </div>
+
+        <div class="btn-subida">
+            <button onclick="upload()" class="btn btn-primary btn-subir" disabled>Subir ficheros</button>
+        </div>
+
+        <div id="loader"></div>
+        <div id="status"></div>
+    </div>
+    
+</body>
+
+</html>
