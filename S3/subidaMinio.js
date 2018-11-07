@@ -37,15 +37,16 @@ function upload() {
         if (xhr.status == 200) {
             $('#status').text(`Subido ${file.name}.`);
             document.querySelector('#loader').style.display = "none";
-            console.log(file.name + " subido con éxito");
+            //console.log(file.name + " subido con éxito");
         }
       }
+
   }
 
 
 function mostrar(){
     var ficheros = document.getElementById("archivos").files;
-    document.querySelector(".list-group").innerHTML = "";
+    document.querySelector(".tficheros").innerHTML = "";
     if(ficheros.length != 0){
         $('.muestra').text(ficheros.length + " ficheros para subir");
         document.querySelector('.btn-subir').disabled = false;
@@ -59,7 +60,12 @@ function mostrar(){
     }
 
     for (let index = 0; index < ficheros.length; index++) {
-        document.querySelector(".list-group").innerHTML += `<li>${ficheros[index].name} - ${ficheros[index].size} bytes</li>`;
-        console.log(ficheros[index]);
+        document.querySelector(".tficheros").innerHTML += `<tr>
+                                                <th scope="row">${index+1}</th>
+                                                <td>${ficheros[index].name}</td>
+                                                <td>${ficheros[index].size}</td>
+                                                <td>${ficheros[index].type}</td>
+                                                </tr>`;
+        //console.log(ficheros[index]);
     }
 }

@@ -21,7 +21,7 @@ client.bucketExists('bucketjs', function(err, exists) {
       return console.log(err)
     }
     if (exists) {
-      return console.log('Bucket exists.')
+      return console.log('El bucket existe.')
     }
     else{
         client.makeBucket('bucketjs', function(err) {
