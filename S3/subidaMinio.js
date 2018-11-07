@@ -1,11 +1,12 @@
 function upload() {
 
     var ficheros = document.getElementById("archivos").files;
+    document.querySelector('.btn-subir').disabled = true;
 
-    console.log(ficheros.length);
+    //console.dir(ficheros);
 
-    [$('#archivos')[0].files].forEach(fileObj => {
-        var file = fileObj[0];
+    Array.from(ficheros).forEach(elemento => {
+        var file = elemento;
         console.log(file.name);
         // Retrieve a URL from our server.
         retrieveNewURL(file, url => {
