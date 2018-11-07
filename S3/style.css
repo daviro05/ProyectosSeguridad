@@ -42,15 +42,21 @@ img{
 	box-shadow: 0px 0px 20px #c1c1c1;
 }
 
-.file-drop-zone{
+
+.form-group{
+    width: 50%;
+    margin:auto;
+}
+
+.list-group li{
+    list-style-type: none; 
+}
+
+.cuadro-fich{
+    width: 300px;
+    margin:auto;
+    border:1px solid black;
+    height: 200px;
     overflow-y: auto;
-    height: 300px;
-}
-
-.kv-file-upload, .kv-fileinput-error, .file-error-message, .progress-bar.bg-danger.progress-bar-danger, .file-upload-indicator {
-    display: none !important;
-}
-
-.progress-bar.bg-danger.progress-bar-danger{
-    background-color: #28a745 !important;
+    display: none;
 }

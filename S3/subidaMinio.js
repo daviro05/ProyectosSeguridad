@@ -14,13 +14,22 @@ function upload() {
 
 function mostrar(){
     var ficheros = document.getElementById("archivos").files;
+    document.querySelector(".list-group").innerHTML = "";
     if(ficheros.length != 0){
         $('.muestra').text(ficheros.length + " ficheros para subir");
         document.querySelector('.btn-subir').disabled = false;
+        document.querySelector('.cuadro-fich').style.display = "block";
     }
     else{
         $('.muestra').text("Seleccionar ficheros");
         document.querySelector('.btn-subir').disabled = true;
+        document.querySelector('.cuadro-fich').style.display = "none";
+        
+    }
+
+    for (let index = 0; index < ficheros.length; index++) {
+        document.querySelector(".list-group").innerHTML += `<li>${ficheros[index].name} - ${ficheros[index].size} bytes</li>`;
+        console.log(ficheros[index]);
     }
 }
 
@@ -28,6 +37,7 @@ function mostrar(){
 function retrieveNewURL(file, cb) {
     console.log("Subiendo... "+file.name);
     $('#status').text(`Subiendo ${file.name}...`);
+    document.querySelector('#loader').style.display = "block";
     $.get(`/subirFichero?name=${file.name}`, (url) => {
         cb(url)
     })
@@ -41,6 +51,7 @@ function uploadFile(file, url) {
     xhr.onload = () => {
       if (xhr.status == 200) {
         $('#status').text(`Subido ${file.name}.`);
+        document.querySelector('#loader').style.display = "none";
         console.log(file.name + " subido con éxito");
       }
     }
