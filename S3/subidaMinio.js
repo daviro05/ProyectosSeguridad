@@ -5,11 +5,15 @@ function upload() {
 
     //console.dir(ficheros);
 
+    var ambito = document.querySelector('#sel1').value;
+
+    console.log(ambito);
+
     Array.from(ficheros).forEach(elemento => {
         var file = elemento;
         console.log(file.name);
         // Retrieve a URL from our server.
-        retrieveNewURL(file, url => {
+        retrieveNewURL(file,ambito, url => {
           // Upload the file to the server.
           uploadFile(file, url)
         })
@@ -17,13 +21,13 @@ function upload() {
 }
 
  // Request to our Node.js server for an upload URL.
- function retrieveNewURL(file, cb) {
+ function retrieveNewURL(file,ambito,cb) {
 
     console.log("Subiendo... "+file.name);
     $('#status').text(`Subiendo ${file.name}...`);
     document.querySelector('#loader').style.display = "block";
 
-    $.get(`/subirFichero?name=${file.name}`, (url) => {
+    $.get(`/subirFichero?name=${file.name}&ambito=${ambito}`, (url) => {
       cb(url)
     })
   }

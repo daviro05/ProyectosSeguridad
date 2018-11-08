@@ -15,29 +15,52 @@ var client = new Minio.Client({
 });
 
 
-client.bucketExists('bucketjs', function(err, exists) {
+if(false){
+client.bucketExists("ambito", function(err, exists) {
 
     if (err) {
       return console.log(err)
     }
     if (exists) {
-      return console.log('El bucket existe.')
+      return console.log('El bucket existe.');
     }
     else{
-        client.makeBucket('bucketjs', function(err) {
+        client.makeBucket("ambito", function(err) {
             if (err) return console.log(err)
-            console.log('Bucket creado con exito.')
         });
     }
-  })
+  });
+}
 
+
+// Elegimos bucket
+
+function elegirBucket(bucket){
+    client.bucketExists(bucket, function(err, exists) {
+
+        if (err) {
+          return console.log(err)
+        }
+        if (exists) {
+          return console.log('El bucket existe.');
+        }
+        else{
+            client.makeBucket(bucket, function(err) {
+                if (err){
+                    return console.log(err)
+                } 
+            });
+        }
+      });
+}
 
 // express is a small HTTP server wrapper, but this works with any HTTP server
 
 
 app.get('/subirFichero', (req, res) => {
 
-     client.presignedPutObject('bucketjs', req.query.name, (err, url) => {
+    elegirBucket(req.query.ambito);
+     client.presignedPutObject(req.query.ambito, req.query.name, (err, url) => {
         if (err) throw err
         res.end(url)
     });
