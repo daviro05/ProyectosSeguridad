@@ -45,7 +45,7 @@ img{
 
 .form-group{
     width: 50%;
-    margin:auto;
+    margin:20px auto;
 }
 
 .list-group li{
@@ -60,3 +60,37 @@ img{
     overflow-y: auto;
     display: none;
 }
+
+
+
+
+  #drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    width: 480px;
+    padding: 20px;
+  }
+  #drop-area.highlight {
+    border-color: rgb(59, 127, 255);
+  }
+  p {
+    margin-top: 0;
+  }
+  .my-form {
+    margin-bottom: 10px;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .button:hover {
+    background: #ddd;
+  }
+  #archivos {
+    display: none;
+  }

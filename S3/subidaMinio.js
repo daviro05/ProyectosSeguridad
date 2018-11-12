@@ -1,27 +1,28 @@
 function upload() {
 
     var ficheros = document.getElementById("archivos").files;
-    document.querySelector('.btn-subir').disabled = true;
-
+    document.querySelector('.btn-subir').style.display = "none";
+    var restantes = ficheros.length;
     //console.dir(ficheros);
 
     var ambito = document.querySelector('#sel1').value;
 
-    console.log(ambito);
+    console.log("Ámbito: " + ambito + " - Ficheros: " + restantes);
 
     Array.from(ficheros).forEach(elemento => {
         var file = elemento;
-        console.log(file.name);
+        console.log(restantes);
         // Retrieve a URL from our server.
-        retrieveNewURL(file,ambito, url => {
+        retrieveNewURL(file,ambito,url => {
           // Upload the file to the server.
-          uploadFile(file, url)
+          uploadFile(file, restantes, url);
         })
-    })
+        restantes--;
+    });
 }
 
  // Request to our Node.js server for an upload URL.
- function retrieveNewURL(file,ambito,cb) {
+ function retrieveNewURL(file,ambito, cb) {
 
     console.log("Subiendo... "+file.name);
     $('#status').text(`Subiendo ${file.name}...`);
@@ -33,7 +34,7 @@ function upload() {
   }
  
   // Use XMLHttpRequest to upload the file to S3.
-  function uploadFile(file, url) {
+  function uploadFile(file, restantes, url) {
       var xhr = new XMLHttpRequest ()
       xhr.open('PUT', url, true)
       xhr.send(file)
@@ -43,33 +44,8 @@ function upload() {
             document.querySelector('#loader').style.display = "none";
             //console.log(file.name + " subido con éxito");
         }
+        if(restantes == 0)
+            $('#status').text("Todos los ficheros subidos con éxito.");
       }
 
   }
-
-
-function mostrar(){
-    var ficheros = document.getElementById("archivos").files;
-    document.querySelector(".tficheros").innerHTML = "";
-    if(ficheros.length != 0){
-        $('.muestra').text(ficheros.length + " ficheros para subir");
-        document.querySelector('.btn-subir').disabled = false;
-        document.querySelector('.cuadro-fich').style.display = "block";
-    }
-    else{
-        $('.muestra').text("Seleccionar ficheros");
-        document.querySelector('.btn-subir').disabled = true;
-        document.querySelector('.cuadro-fich').style.display = "none";
-        
-    }
-
-    for (let index = 0; index < ficheros.length; index++) {
-        document.querySelector(".tficheros").innerHTML += `<tr>
-                                                <th scope="row">${index+1}</th>
-                                                <td>${ficheros[index].name}</td>
-                                                <td>${ficheros[index].size}</td>
-                                                <td>${ficheros[index].type}</td>
-                                                </tr>`;
-        //console.log(ficheros[index]);
-    }
-}
