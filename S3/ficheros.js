@@ -33,31 +33,33 @@ function unhighlight(e) {
 }
 
 function handleDrop(e) {
+debugger;
   var dt = e.dataTransfer
   var files = dt.files
-
   handleFiles(files)
 }
 
 function handleFiles(files) {
-  files = [...files]
+  files = [...files];
   mostrar(files);
 }
 
 function mostrar(ficheros){
-    //var ficheros = document.getElementById("archivos").files;
-    document.querySelector(".tficheros").innerHTML = "";
-    if(ficheros.length != 0){
-        $('.muestra').text(ficheros.length + " ficheros para subir");
-        document.querySelector('.btn-subir').disabled = false;
-        document.querySelector('.cuadro-fich').style.display = "block";
+    // Hacemos que aparezca la información de los ficheros y el ámbito a elegir
+    if(ficheros.length > 0){
+        document.querySelector('#prep_subida').style.display = "block";
+        document.querySelector('.info').innerHTML = ficheros.length + " ficheros seleccionados.";
     }
     else{
-        $('.muestra').text("Seleccionar ficheros");
-        document.querySelector('.btn-subir').disabled = true;
-        document.querySelector('.cuadro-fich').style.display = "none";
-        
+        document.querySelector('#prep_subida').style.display = "none";
+        document.querySelector('.info').innerHTML = "";
     }
+
+    document.querySelector(".tficheros").innerHTML = "";
+    if(ficheros.length != 0)
+        document.querySelector('.btn-subir').disabled = false;
+    else
+        document.querySelector('.btn-subir').disabled = true; 
 
     for (let index = 0; index < ficheros.length; index++) {
         document.querySelector(".tficheros").innerHTML += `<tr>
@@ -69,11 +71,7 @@ function mostrar(ficheros){
     }
 }
 
-$("#hide").click(function(){
-    $("p").hide();
-});
 
-$("#show").click(function(){
-    $("p").show();
+$("#datos").click(function(){
+    $(".cuadro-fich").fadeToggle("slow", "linear");
 });
-

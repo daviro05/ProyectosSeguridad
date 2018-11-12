@@ -17,23 +17,18 @@
         <div>
             <img class="img_logo" src="../logo.png">
         </div>
-        
-        <!--<div class="input-group mb-3">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="archivos" multiple onchange="mostrar()">
-                <label class="custom-file-label muestra" for="inputGroupFile01">Seleccionar ficheros</label>
-            </div>
-        </div>-->
-
+    
 
         <div id="drop-area">
             <form class="my-form">
-              <p>Arrastra los ficheros que quieras subir</p>
+              <p>Arrastra los ficheros que quieras subir al repositorio temporal</p>
               <input type="file" id="archivos" multiple onchange="handleFiles(this.files)">
               <label class="button" for="archivos">Seleccionar ficheros</label>
             </form>
+            <p class="info"></p>
           </div>
 
+        <div id="prep_subida">
         <div class="form-group">
             <label for="sel1">Ámbito</label>
             <select class="form-control" id="sel1">
@@ -42,6 +37,8 @@
               <option value="a62">Aragón</option>
             </select>
           </div>
+
+          <p id="datos">Mostrar datos</p>
 
           <div class="cuadro-fich">
                 <table class="table">
@@ -63,6 +60,7 @@
         </div>
         <div id="loader"></div>
         <div id="status"></div>
+    </div>
     </div>
     
 </body>

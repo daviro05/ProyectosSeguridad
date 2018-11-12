@@ -1,5 +1,5 @@
 function upload() {
-
+    debugger;
     var ficheros = document.getElementById("archivos").files;
     document.querySelector('.btn-subir').style.display = "none";
     var restantes = ficheros.length;
@@ -11,7 +11,6 @@ function upload() {
 
     Array.from(ficheros).forEach(elemento => {
         var file = elemento;
-        console.log(restantes);
         // Retrieve a URL from our server.
         retrieveNewURL(file,ambito,url => {
           // Upload the file to the server.
@@ -42,7 +41,7 @@ function upload() {
         if (xhr.status == 200) {
             $('#status').text(`Subido ${file.name}.`);
             document.querySelector('#loader').style.display = "none";
-            //console.log(file.name + " subido con éxito");
+            console.log(file.name + " subido con éxito");
         }
         if(restantes == 0)
             $('#status').text("Todos los ficheros subidos con éxito.");

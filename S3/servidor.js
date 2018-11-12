@@ -27,7 +27,7 @@ app.get('/subirFichero', (req, res) => {
           return console.log(err)
         }
         if (exists) {
-            console.log('El bucket existe.');
+            //console.log('El bucket existe.');
             subida();
         }
         else{
