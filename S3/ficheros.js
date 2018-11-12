@@ -33,7 +33,6 @@ function unhighlight(e) {
 }
 
 function handleDrop(e) {
-debugger;
   var dt = e.dataTransfer
   var files = dt.files
   handleFiles(files)
