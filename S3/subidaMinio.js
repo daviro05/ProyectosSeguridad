@@ -44,10 +44,14 @@ function upload() {
         if (e.lengthComputable) {
             console.log(e.loaded/1000000+  " / " + e.total/1000000);
         }
-        if(e.loaded == e.total)
+        if(e.loaded == e.total){
             document.querySelector('#loader').style.display = "none";
-        else
+            document.querySelector('.tick').style.display = "block";
+        }
+        else{
+            document.querySelector('.tick').style.display = "none";
             document.querySelector('#loader').style.display = "block";
+        }
     }
 
       xhr.send(file)
