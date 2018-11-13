@@ -22,7 +22,7 @@
         <div id="drop-area">
             <form class="my-form">
               <p>Arrastra los ficheros que quieras subir al repositorio temporal</p>
-              <input type="file" id="archivos" multiple onchange="handleFiles(this.files)" ondrop="handleFiles(this.files)">
+              <input type="file" name="files[]" id="archivos" multiple onchange="handleFiles(this.files)">
               <label class="button" for="archivos">Seleccionar ficheros</label>
             </form>
             <p class="info"></p>

@@ -33,8 +33,11 @@ function unhighlight(e) {
 }
 
 function handleDrop(e) {
+  console.log("Arrastrando fichero")
   var dt = e.dataTransfer
   var files = dt.files
+  document.getElementById("archivos").files = e.dataTransfer.files;
+  e.preventDefault();
   handleFiles(files)
 }
 
@@ -62,11 +65,11 @@ function mostrar(ficheros){
 
     for (let index = 0; index < ficheros.length; index++) {
         document.querySelector(".tficheros").innerHTML += `<tr>
-                                                <th scope="row">${index+1}</th>
-                                                <td>${ficheros[index].name}</td>
-                                                <td>${ficheros[index].size}</td>
-                                                <td>${ficheros[index].type}</td>
-                                                </tr>`;
+        <th scope="row">${index+1}</th>
+        <td>${ficheros[index].name}</td>
+        <td>${ficheros[index].size}</td>
+        <td>${ficheros[index].type}</td>
+        </tr>`;
     }
 }
 
