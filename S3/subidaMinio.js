@@ -2,10 +2,8 @@ function upload() {
 
     var ficheros = document.getElementById("archivos").files;
     document.querySelector('.btn-subir').style.display = "none";
-    var restantes = ficheros.length;
-    console.log(ficheros);
     var ambito = document.querySelector('#sel1').value;
-    console.log("Ámbito: " + ambito + " - Ficheros: " + restantes);
+    console.log("Ámbito: " + ambito + " - Ficheros: " + ficheros.length);
 
     Array.from(ficheros).forEach(elemento => {
         var file = elemento;
@@ -29,7 +27,7 @@ function upload() {
   }
  
   // Use XMLHttpRequest to upload the file to S3.
-  function uploadFile(file, url) {
+  function uploadFile(file,url) {
       var xhr = new XMLHttpRequest ()
       xhr.open('PUT', url, true)
       xhr.send(file)
@@ -38,10 +36,15 @@ function upload() {
             $('#status').text(`Subido ${file.name}.`);
             console.log(file.name + " subido con éxito");
         }
-        if(restantes == 0){
+        if(false){
             document.querySelector('#loader').style.display = "none";
             $('#status').text("Todos los ficheros subidos con éxito.");
         }
       }
-
   }
+
+
+  /*
+  document.querySelector('#loader').style.display = "none";
+  $('#status').text("Todos los ficheros subidos con éxito.");
+*/
