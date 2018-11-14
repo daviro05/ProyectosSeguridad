@@ -33,6 +33,7 @@ function upload() {
     var xhr = new XMLHttpRequest ()
     xhr.open('PUT', url, true);
     var started_at = new Date();
+    var seconds_elapsed, bytes_per_second, remaining_bytes, seconds;
 
     xhr.upload.onprogress = function (e) {
         $('#status').text(`Subiendo ${file.name}...`);
@@ -44,18 +45,17 @@ function upload() {
             document.querySelector(".progress-bar").style.width = Math.floor((e.loaded / e.total) * 100) + '%';
         }
 
-        var seconds_elapsed =   ( new Date().getTime() - started_at.getTime() )/1000; 
-        var bytes_per_second =  seconds_elapsed ? e.loaded / seconds_elapsed : 0 ;
-        var remaining_bytes =   e.total - e.loaded;
-        var seconds = seconds_elapsed ? remaining_bytes / bytes_per_second : 'Calculando...' ;
+        seconds_elapsed =   ( new Date().getTime() - started_at.getTime() )/1000; 
+        bytes_per_second =  seconds_elapsed ? e.loaded / seconds_elapsed : 0 ;
+        remaining_bytes =   e.total - e.loaded;
+        seconds = seconds_elapsed ? remaining_bytes / bytes_per_second : 'Calculando...' ;
         $('.time_re').text("Tiempo restante aproximado: "+(seconds/60).toFixed(0) + " minutos");
     }
 
-    xhr.onloadend = function (e) {
+    xhr.upload.onloadend = function (e) {
         console.log(file.name + " subido con éxito");
         console.log(index)
         $('#status').text(`Subida completada`);
-        document.querySelector('.reg-fich').style.display = "block";
     }
 
       xhr.send(file)
