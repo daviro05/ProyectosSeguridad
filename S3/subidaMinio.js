@@ -1,57 +1,61 @@
 function upload() {
 
     var ficheros = document.getElementById("archivos").files;
-    document.querySelector('.btn-subir').style.display = "none";
-    var ambito = document.querySelector('#sel1').value;
-    console.log("Ámbito: " + ambito + " - Ficheros: " + ficheros.length);
+    var ambito = document.querySelector('#amb').value;
+    document.querySelector('.btn-subir').disabled = true;
 
-    Array.from(ficheros).forEach(elemento => {
+    document.querySelector('.info-subida').style.display = "block";
+    document.querySelector('.cuadro-subida').style.display = "none";
+    
+
+    console.log("Ámbito: " + ambito + " - Ficheros: " + ficheros.length);
+    $('#status').text(`Preparando ficheros...`);
+
+    Array.from(ficheros).forEach(function (elemento, index) {
         var file = elemento;
         // Retrieve a URL from our server.
         retrieveNewURL(file,ambito,url => {
           // Upload the file to the server.
-          uploadFile(file, url);
+          uploadFile(file, index, url);
         })
     });
 }
 
  // Request to our Node.js server for an upload URL.
  function retrieveNewURL(file,ambito, cb) {
-    //document.querySelector('#loader').style.display = "block";
-
     $.get(`/subirFichero?name=${file.name}&ambito=${ambito}`, (url) => {
       cb(url)
-    })
+    });
   }
  
   // Use XMLHttpRequest to upload the file to S3.
-  function uploadFile(file,url) {
-      var xhr = new XMLHttpRequest ()
+  function uploadFile(file, index, url) {
+    var xhr = new XMLHttpRequest ()
+    xhr.open('PUT', url, true);
+    var started_at = new Date();
 
-      xhr.open('PUT', url, true);
-
-    xhr.onloadstart = function (e) {
-        console.log("Subiendo... "+file.name);
+    xhr.upload.onprogress = function (e) {
         $('#status').text(`Subiendo ${file.name}...`);
+        document.querySelector('.btn-subida').disabled = true;
+
+        if (e.lengthComputable) {
+            //console.log(Math.floor((e.loaded / e.total) * 100) + '%');
+            document.querySelector(".progress-bar").innerText = Math.floor((e.loaded / e.total) * 100) + '%';
+            document.querySelector(".progress-bar").style.width = Math.floor((e.loaded / e.total) * 100) + '%';
+        }
+
+        var seconds_elapsed =   ( new Date().getTime() - started_at.getTime() )/1000; 
+        var bytes_per_second =  seconds_elapsed ? e.loaded / seconds_elapsed : 0 ;
+        var remaining_bytes =   e.total - e.loaded;
+        var seconds = seconds_elapsed ? remaining_bytes / bytes_per_second : 'Calculando...' ;
+        $('.time_re').text("Tiempo restante aproximado: "+(seconds/60).toFixed(0) + " minutos");
     }
 
     xhr.onloadend = function (e) {
-        $('#status').text(`Subido ${file.name}.`);
         console.log(file.name + " subido con éxito");
-    }
-
-    xhr.upload.onprogress = function (e) {
-        if (e.lengthComputable) {
-            console.log(e.loaded/1000000+  " / " + e.total/1000000);
-        }
-        if(e.loaded == e.total){
-            document.querySelector('#loader').style.display = "none";
-            document.querySelector('.tick').style.display = "block";
-        }
-        else{
-            document.querySelector('.tick').style.display = "none";
-            document.querySelector('#loader').style.display = "block";
-        }
+        console.log(index)
+        $('#status').text(`Subida completada`);
+        document.querySelector('.reg-fich').style.display = "block";
     }
 
       xhr.send(file)

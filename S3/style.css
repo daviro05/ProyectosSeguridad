@@ -14,12 +14,6 @@ img{
     margin-top: 10px;
 }
 
-.tick{
-    width: 40px;
-    margin:0 auto;
-    display: none;
-}
-
 #prep_subida{
     display: none;
 }
@@ -55,27 +49,6 @@ img{
     display: none;
 }
 
-/* Loader */
-
-#loader {
-    margin: auto;
-    margin-top: 20px;
-    display: none;
-    border: 5px solid #f3f3f3; /* Light grey */
-    border-top: 5px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
-
 
   #drop-area {
     border: 2px dashed #ccc;
@@ -107,3 +80,18 @@ img{
   #archivos {
     display: none;
   }
+
+  .info-subida{
+      display:none;
+  }
+
+.progress{
+    width: 300px;
+    margin:auto;
+    display: none;
+}
+
+.reg-fich{
+    margin-top: 50px;
+    display: none;
+}

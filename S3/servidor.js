@@ -27,7 +27,6 @@ app.get('/subirFichero', (req, res) => {
           return console.log(err)
         }
         if (exists) {
-            //console.log('El bucket existe.');
             subida();
         }
         else{
@@ -51,5 +50,4 @@ app.get('/subirFichero', (req, res) => {
 
 
 app.use('/', express.static('./'));
-
 app.listen(8080, function () { console.log("El servidor está corriendo en el puerto 8080!"); })
