@@ -11,6 +11,8 @@ function upload() {
     console.log("Ámbito: " + ambito + " - Ficheros: " + ficheros.length);
     $('#status').text(`Preparando ficheros...`);
 
+    var aux;
+
     Array.from(ficheros).forEach(function (elemento, index) {
         var file = elemento;
         // Retrieve a URL from our server.
@@ -32,31 +34,38 @@ function upload() {
   function uploadFile(file, index, url) {
     var xhr = new XMLHttpRequest ()
     xhr.open('PUT', url, true);
+    progreso(xhr,file,index);
+    xhr.send(file);
+  }
+
+
+  function progreso(xhr,file,index){
     var started_at = new Date();
     var seconds_elapsed, bytes_per_second, remaining_bytes, seconds;
 
     xhr.upload.onprogress = function (e) {
         $('#status').text(`Subiendo ${file.name}...`);
+        console.log(index)
         document.querySelector('.btn-subida').disabled = true;
 
-        if (e.lengthComputable) {
-            //console.log(Math.floor((e.loaded / e.total) * 100) + '%');
-            document.querySelector(".progress-bar").innerText = Math.floor((e.loaded / e.total) * 100) + '%';
-            document.querySelector(".progress-bar").style.width = Math.floor((e.loaded / e.total) * 100) + '%';
-        }
+        if(true){ //Condicion para meter varias barras
+            if (e.lengthComputable) {
+                //console.log(Math.floor((e.loaded / e.total) * 100) + '%');
+                document.querySelector(".progress-bar").innerText = Math.floor((e.loaded / e.total) * 100) + '%';
+                document.querySelector(".progress-bar").style.width = Math.floor((e.loaded / e.total) * 100) + '%';
+            }
 
-        seconds_elapsed =   ( new Date().getTime() - started_at.getTime() )/1000; 
-        bytes_per_second =  seconds_elapsed ? e.loaded / seconds_elapsed : 0 ;
-        remaining_bytes =   e.total - e.loaded;
-        seconds = seconds_elapsed ? remaining_bytes / bytes_per_second : 'Calculando...' ;
-        $('.time_re').text("Tiempo restante aproximado: "+(seconds/60).toFixed(0) + " minutos");
+            seconds_elapsed =   ( new Date().getTime() - started_at.getTime() )/1000; 
+            bytes_per_second =  seconds_elapsed ? e.loaded / seconds_elapsed : 0 ;
+            remaining_bytes =   e.total - e.loaded;
+            seconds = seconds_elapsed ? remaining_bytes / bytes_per_second : 'Calculando...' ;
+            $('.time_re').text("Tiempo restante aproximado: "+(seconds/60).toFixed(0) + " minutos");
+        }
     }
 
     xhr.upload.onloadend = function (e) {
         console.log(file.name + " subido con éxito");
-        console.log(index)
         $('#status').text(`Subida completada`);
     }
 
-      xhr.send(file)
   }
