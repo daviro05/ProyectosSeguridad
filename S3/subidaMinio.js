@@ -34,18 +34,17 @@ function upload() {
   function uploadFile(file, index, url) {
     var xhr = new XMLHttpRequest ()
     xhr.open('PUT', url, true);
-    progreso(xhr,file,index);
+    progreso(xhr,file);
     xhr.send(file);
   }
 
 
-  function progreso(xhr,file,index){
+  function progreso(xhr,file){
     var started_at = new Date();
     var seconds_elapsed, bytes_per_second, remaining_bytes, seconds;
 
     xhr.upload.onprogress = function (e) {
         $('#status').text(`Subiendo ${file.name}...`);
-        console.log(index)
         document.querySelector('.btn-subida').disabled = true;
 
         if(true){ //Condicion para meter varias barras
