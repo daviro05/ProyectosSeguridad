@@ -18,7 +18,7 @@ function upload() {
         // Retrieve a URL from our server.
         retrieveNewURL(file,ambito,url => {
           // Upload the file to the server.
-          uploadFile(file, index, url);
+          uploadFile(file, ficheros.length, url);
         })
     });
 }
@@ -31,15 +31,14 @@ function upload() {
   }
  
   // Use XMLHttpRequest to upload the file to S3.
-  function uploadFile(file, index, url) {
+  function uploadFile(file, tam, url) {
     var xhr = new XMLHttpRequest ()
     xhr.open('PUT', url, true);
-    progreso(xhr,file);
+    progreso(xhr,file, tam);
     xhr.send(file);
   }
 
-
-  function progreso(xhr,file){
+  function progreso(xhr,file, tam){
     var started_at = new Date();
     var seconds_elapsed, bytes_per_second, remaining_bytes, seconds;
 

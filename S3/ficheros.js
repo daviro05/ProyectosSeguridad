@@ -67,7 +67,7 @@ function mostrar(ficheros){
         document.querySelector(".tficheros").innerHTML += `<tr>
         <th scope="row">${index+1}</th>
         <td>${ficheros[index].name}</td>
-        <td>${ficheros[index].size}</td>
+        <td>${ficheros[index].size} bytes</td>
         <td>${ficheros[index].type}</td>
         </tr>`;
     }
