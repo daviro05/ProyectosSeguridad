@@ -11,14 +11,26 @@ function upload() {
     console.log("Ámbito: " + ambito + " - Ficheros: " + ficheros.length);
     $('#status').text(`Preparando ficheros...`);
 
-    var aux;
+    var tam_total = 0;
+    var procesado = false;
+    var aux = 0;
 
-    Array.from(ficheros).forEach(function (elemento, index) {
+    Array.from(ficheros).forEach(function (elemento, index, array) {
         var file = elemento;
+        
+        tam_total += file.size;
+        if(aux < file.size)
+            aux = file.size
+
+        if(index === array.length-1){
+            console.log(tam_total);
+            procesado = true;
+        }
+
         // Retrieve a URL from our server.
         retrieveNewURL(file,ambito,url => {
           // Upload the file to the server.
-          uploadFile(file, ficheros.length, url);
+          uploadFile(file, procesado, tam_total, aux, url);
         })
     });
 }
@@ -31,14 +43,15 @@ function upload() {
   }
  
   // Use XMLHttpRequest to upload the file to S3.
-  function uploadFile(file, tam, url) {
+  function uploadFile(file, procesado, tam_total,url) {
     var xhr = new XMLHttpRequest ()
     xhr.open('PUT', url, true);
-    progreso(xhr,file, tam);
+    progreso(xhr,procesado, tam_total,file);
     xhr.send(file);
   }
 
-  function progreso(xhr,file, tam){
+  function progreso(xhr,procesado, tam_total,file){
+
     var started_at = new Date();
     var seconds_elapsed, bytes_per_second, remaining_bytes, seconds;
 
@@ -46,10 +59,11 @@ function upload() {
         $('#status').text(`Subiendo ${file.name}...`);
         document.querySelector('.btn-subida').disabled = true;
 
-        if(true){ //Condicion para meter varias barras
+        if(procesado){
             if (e.lengthComputable) {
+                console.log(e.loaded + "/" + e.total);
                 //console.log(Math.floor((e.loaded / e.total) * 100) + '%');
-                document.querySelector(".progress-bar").innerText = Math.floor((e.loaded / e.total) * 100) + '%';
+                document.querySelector(".progress-bar").innerText = Math.floor((e.loaded /e.total) * 100) + '%';
                 document.querySelector(".progress-bar").style.width = Math.floor((e.loaded / e.total) * 100) + '%';
             }
 
@@ -65,5 +79,4 @@ function upload() {
         console.log(file.name + " subido con éxito");
         $('#status').text(`Subida completada`);
     }
-
   }
