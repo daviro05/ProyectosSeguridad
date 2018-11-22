@@ -2,17 +2,14 @@ function upload() {
 
     var ficheros = document.getElementById("archivos").files;
     var ambito = document.querySelector('#amb').value;
-    document.querySelector('.btn-subir').disabled = true;
 
+    document.querySelector('.btn-subir').disabled = true;
     document.querySelector('.info-subida').style.display = "block";
     document.querySelector('.cuadro-subida').style.display = "none";
     document.querySelector('.btn-subida').disabled = true;
-    
-    $('#status').text(`Ficheros a subir`);
 
-    Array.from(ficheros).forEach(function (elemento, index, array) {
+    Array.from(ficheros).forEach(function (elemento, index) {
         var arrayFich = [];
-
         arrayFich.push(elemento,index);
 
         document.querySelector(".barras").innerHTML += `<div class="progress">
@@ -56,10 +53,10 @@ function upload() {
                 document.querySelector("#barra"+arrayFich[1]).innerText = Math.floor((e.loaded / e.total) * 100) + '%';
                 document.querySelector("#barra"+arrayFich[1]).style.width = Math.floor((e.loaded / e.total) * 100) + '%';
         
-                seconds_elapsed =   ( new Date().getTime() - started_at.getTime() )/1000; 
-                bytes_per_second =  seconds_elapsed ? e.loaded / seconds_elapsed : 0 ;
-                remaining_bytes =   e.total - e.loaded;
-                seconds = seconds_elapsed ? remaining_bytes / bytes_per_second : 'Calculando...' ;
+                seconds_elapsed     =   ( new Date().getTime() - started_at.getTime() )/1000; 
+                bytes_per_second    =   seconds_elapsed ? e.loaded / seconds_elapsed : 0 ;
+                remaining_bytes     =   e.total - e.loaded;
+                seconds             =   seconds_elapsed ? remaining_bytes / bytes_per_second : 'Calculando...' ;
                 document.querySelector("#time"+arrayFich[1]).innerText = "Restante: "+(seconds/60).toFixed(0)+ " minutos";
             }
     }

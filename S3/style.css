@@ -83,6 +83,13 @@ img{
 
   .info-subida{
       display:none;
+      width: 600px;
+      height: 500px;
+      margin:auto;
+      background-color: #eeeeeef1;
+      border: 1px solid black;
+      border-radius: 10px;
+      overflow-y: auto;
   }
 
 .progress{
@@ -92,9 +99,14 @@ img{
 }
 
 .reg-fich{
+    display:none;
     margin-top: 50px;
 }
 
-#status{
-    margin-bottom: 10px;
+.progress-bar{
+    border:1px solid black;
+}
+
+.barras{
+    margin-top:30px;
 }
