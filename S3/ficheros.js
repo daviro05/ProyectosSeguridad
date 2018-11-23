@@ -19,11 +19,6 @@ let dropArea = document.getElementById("drop-area")
 // Handle dropped files
 dropArea.addEventListener('drop', handleDrop, false)
 
-function handleFiles(files) {
-  files = [...files];
-  mostrar(files);
-}
-
 function preventDefaults (e) {
   e.preventDefault()
   e.stopPropagation()
@@ -46,6 +41,10 @@ function handleDrop(e) {
   handleFiles(files)
 }
 
+function handleFiles(files) {
+  files = [...files];
+  mostrar(files);
+}
 
 function mostrar(ficheros){
     // Hacemos que aparezca la información de los ficheros y el ámbito a elegir

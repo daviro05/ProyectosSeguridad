@@ -65,5 +65,6 @@ function upload() {
         console.log(arrayFich[0].name + " subido con éxito");
         document.querySelector("#infobarra"+arrayFich[1]).innerText = `${arrayFich[0].name} subido`;
         document.querySelector("#time"+arrayFich[1]).innerText = "";
+        document.querySelector('.reg-fich').style.display = "block";
     }
   }
