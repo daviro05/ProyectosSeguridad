@@ -1,3 +1,6 @@
+var procesados = false;
+var ficheros = 0;
+
 function upload() {
 
     var ficheros = document.getElementById("archivos").files;
@@ -21,7 +24,7 @@ function upload() {
         // Retrieve a URL from our server.
         retrieveNewURL(arrayFich,ambito,url => {
           // Upload the file to the server.
-          uploadFile(arrayFich,url);
+          uploadFile(arrayFich,url,ficheros.length);
         })
     });
 }
@@ -34,14 +37,14 @@ function upload() {
   }
  
   // Use XMLHttpRequest to upload the file to S3.
-  function uploadFile(arrayFich, url) {
+  function uploadFile(arrayFich, url, tam) {
     var xhr = new XMLHttpRequest ()
     xhr.open('PUT', url, true);
-    progreso(xhr,arrayFich);
+    progreso(xhr,arrayFich,tam);
     xhr.send(arrayFich[0]);
   }
 
-  function progreso(xhr,arrayFich){
+  function progreso(xhr,arrayFich,tam){
 
     var started_at = new Date();
     var seconds_elapsed, bytes_per_second, remaining_bytes, seconds;
@@ -65,6 +68,13 @@ function upload() {
         console.log(arrayFich[0].name + " subido con éxito");
         document.querySelector("#infobarra"+arrayFich[1]).innerText = `${arrayFich[0].name} subido`;
         document.querySelector("#time"+arrayFich[1]).innerText = "";
-        document.querySelector('.reg-fich').style.display = "block";
+        //document.querySelector('.reg-fich').style.display = "block";
+        ficheros++;
+        console.log(ficheros, tam);
+
+        if(ficheros === tam){
+          document.querySelector('.reg-fich').style.display = "block";
+        }
+
     }
   }
