@@ -26,7 +26,7 @@ img{
 	margin:0 auto;
 	padding: 20px;
 	margin-top: 100px;
-	background-color: #fff;
+	background-color: rgb(255, 255, 255);
 	box-shadow: 0px 0px 20px #c1c1c1;
 }
 
@@ -83,8 +83,7 @@ img{
 
   .info-subida{
       display:none;
-      width: 600px;
-      height: 500px;
+      height: 400px;
       margin:auto;
       background-color: #eeeeeef1;
       border: 1px solid black;
@@ -103,10 +102,23 @@ img{
     margin-top: 50px;
 }
 
-.progress-bar{
+.barras{
+    margin-top:30px;
+}
+
+.progress{
+    background-color: white !important;
     border:1px solid black;
 }
 
-.barras{
-    margin-top:30px;
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
